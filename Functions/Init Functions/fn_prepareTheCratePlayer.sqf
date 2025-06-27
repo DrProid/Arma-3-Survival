@@ -77,6 +77,21 @@ private _healString = ["<t color='#ff0000'>-- Heal Yourself ",BLWK_pointsForHeal
 
 [_mainCrate] call BLWK_fnc_addBuildableObjectActions;
 
+// Admin only action to reveal enemies if they are hidden somewhere and the wave won't end.
+_mainCrate addAction [
+	"<t color='#ff0000'>[ADMIN ONLY]</t> Reveal Enemies",
+	{
+		{player reveal [_x, 4]} forEach BLWK_mustKillArray;
+	},
+	nil,
+	2,
+	false,
+	true,
+	"true",
+	"hasInterface && isServer", // Probably won't show up for admins on dedicated servers
+	3
+];
+
 
 _mainCrate addEventHandler ["ContainerOpened",{
 	params ["_mainCrate"];
