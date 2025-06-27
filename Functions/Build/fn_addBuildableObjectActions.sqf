@@ -71,27 +71,33 @@ switch (true) do {
 };
 
 // CIPHER COMMENT: maybe make sell into a hold action?
+// DRPROID COMMENT: I made it a hold action
 // sell object
 if (_addSellAction) then {
-	_object addAction [
-		"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Sell " + _objectName + " Back --</t></t></t>",
-		{
-			params ["_object","_caller"];
-
-			if (_object isEqualTo (missionNamespace getVariable ["BLWK_mainCrate",objNull]) OR {_object isEqualTo (missionNamespace getVariable ["BLWK_randomWeaponBox",objNull])}) exitWith {
-				["You can't sell this item"] call KISKA_fnc_errorNotification;
-			};
-
-			[_object,_caller] call BLWK_fnc_sellObject;
-		},
-		nil,
-		90,
-		false,
-		false,
-		"true",
-		CONDITION,
-		_actionDistance
-	];
+	[
+	_object,
+	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Sell " + _objectName + " Back --</t></t></t>",
+	"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\refuel_ca.paa",
+	"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\refuel_ca.paa",
+	CONDITION + " AND {_this distance _target < 3}",
+	"_caller distance _target < 3",
+	{},
+	{},
+	{
+		params ["_object","_caller"];
+		//This if statement seems redundant because we are already in an if statement that checks _addSellAction which should already be populated, so we shouldn't see the sell option for these objects anyway
+		// if (_object isEqualTo (missionNamespace getVariable ["BLWK_mainCrate",objNull]) OR {_object isEqualTo (missionNamespace getVariable ["BLWK_randomWeaponBox",objNull])}) exitWith {
+		// 	["You can't sell this item"] call KISKA_fnc_errorNotification;
+		// };
+		[_object,_caller] call BLWK_fnc_sellObject;
+	},
+	{},
+	[],
+	5, // Action duration in seconds
+	90, // Priority
+	true, // Remove on completion - Not sure if this matters because the object should be removed anyway, but come back and change to false if BLWK_fnc_sellObject fails in any cases
+	false // Show in unconscious state
+] call BIS_fnc_holdActionAdd;
 };
 
 // move up
