@@ -217,7 +217,7 @@ _object addAction [
 	},
 	nil,
 	99,
-	false, // showWindow - Why isn't this working?
+	false,
 	false,
 	"true",
 	"!(_originalTarget getVariable ['BLWK_objectPickedUp',false]) AND (_originalTarget getVariable ['BLWK_objectLocked',false]) AND {isNil 'BLWK_heldObject'} AND {isNull (objectParent player)}",
