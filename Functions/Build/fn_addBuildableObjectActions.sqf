@@ -25,7 +25,7 @@ Author(s):
 ---------------------------------------------------------------------------- */
 scriptName "BLWK_fnc_addBuildableObjectActions";
 
-#define CONDITION "!(_originalTarget getVariable ['BLWK_objectPickedUp',false]) AND {isNil 'BLWK_heldObject'} AND {isNull (objectParent player)}"
+#define CONDITION "!(_originalTarget getVariable ['BLWK_objectPickedUp',false]) AND !(_originalTarget getVariable ['BLWK_objectLocked',false]) AND {isNil 'BLWK_heldObject'} AND {isNull (objectParent player)}"
 
 if !(hasInterface) exitWith {false};
 
@@ -79,8 +79,8 @@ if (_addSellAction) then {
 	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Sell " + _objectName + " Back --</t></t></t>",
 	"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\refuel_ca.paa",
 	"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\refuel_ca.paa",
-	CONDITION + " AND {_this distance _target < 3}",
-	"_caller distance _target < 3",
+	CONDITION + " AND {_this distance _target < " + str _actionDistance + "}",
+	"_caller distance _target < " + str _actionDistance,
 	{},
 	{},
 	{
@@ -192,5 +192,36 @@ _object addAction [
 	_actionDistance
 ];
 
+// Lock object
+_object addAction [
+	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Lock " + _objectName + " --</t></t></t>",
+	{
+		params ["_object"];
+		_object setVariable ['BLWK_objectLocked', true];
+	},
+	nil,
+	99,
+	false,
+	false,
+	"true",
+	CONDITION,
+	_actionDistance
+];
+
+// Unlock object
+_object addAction [
+	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Unlock " + _objectName + " --</t></t></t>",
+	{
+		params ["_object"];
+		_object setVariable ['BLWK_objectLocked', false];
+	},
+	nil,
+	99,
+	false, // showWindow - Why isn't this working?
+	false,
+	"true",
+	"!(_originalTarget getVariable ['BLWK_objectPickedUp',false]) AND (_originalTarget getVariable ['BLWK_objectLocked',false]) AND {isNil 'BLWK_heldObject'} AND {isNull (objectParent player)}",
+	_actionDistance
+];
 
 true
