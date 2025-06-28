@@ -31,6 +31,7 @@ if (isNull _reclaimerObject) exitWith {
 
 // create a storage box for the dumbster and then hide it
 private _storageBox = "Box_NATO_Ammo_F" createVehicle (position player);
+_storageBox setVariable ["maximumLoad", 100000, true]; // Increase to 100,000 mass units
 // delete all inventory
 clearItemCargoGlobal _storageBox;
 clearBackpackCargoGlobal _storageBox;

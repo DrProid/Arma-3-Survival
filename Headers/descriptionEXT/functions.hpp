@@ -262,6 +262,8 @@ class BLWK
 		{};
 		class spinRandomWeaponBox
 		{};
+		class unlockVirtualItems
+		{};
 	};
 
 	class OtherActions

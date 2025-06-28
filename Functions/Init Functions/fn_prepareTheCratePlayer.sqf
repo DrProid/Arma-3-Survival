@@ -92,6 +92,22 @@ _mainCrate addAction [
 	3
 ];
 
+// ["AmmoboxInit", [_mainCrate, false]] call BIS_fnc_arsenal;
+// I'll have to set up a system that compares the players inventory before and after using virtual ammo box so that points can be deducted for the items they take out
+// basically I just want to prevent the item reclaimer being cheesed by pulling out unlimited items from the virtual BIS_fnc_arsenal
+// if the player doesn't have enough points then don't go below 0. I don't really care if they are poor because that would mean they aren't cheesing the reclaim system
+
+// Add the "Unlock Virtual Items" action to the crate
+_mainCrate addAction [
+    "[WIP, currently just unpacks everything] Unlock Virtual Items", // Action name
+    {
+        params ["_target", "_caller"]; // _target is the crate, _caller is the player interacting
+
+        // Call a custom function to process unlocking items
+        [_target] call BLWK_fnc_unlockVirtualItems;
+		
+    }
+];
 
 _mainCrate addEventHandler ["ContainerOpened",{
 	params ["_mainCrate"];
