@@ -70,6 +70,7 @@ private _fn_stripWeapon = { // takes all attachments and ammo out of a weapon
 };
 
 ////// UNPACKING ALL CONTAINERS //////////
+hint format ["Unpacking Containers in %1", _crate];
 private _allContainers = everyContainer _crate; // every backpack, uniform and vest
 {
     private _containerClassName = _x select 0; // we don't actually need this
@@ -108,6 +109,7 @@ private _allContainers = everyContainer _crate; // every backpack, uniform and v
 } forEach _allContainers;
 
 /////////// TAKE OFF ALL WEAPON ATTACHMENTS AND UNLOAD AMMO ///////////////
+hint format ["Stripping weapons in %1", _crate];
 private _allWeaponItems = weaponsItemsCargo _crate; // Weapons and weapon attachments including loaded ammo - array of arrays
 clearWeaponCargoGlobal _crate;   // Clears weapons
 {

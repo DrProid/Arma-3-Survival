@@ -99,11 +99,12 @@ _mainCrate addAction [
 
 // Add the "Unlock Virtual Items" action to the crate
 _mainCrate addAction [
-    "[WIP, currently just unpacks everything] Unlock Virtual Items", // Action name
+    "UNPACK ALL",//"[WIP, currently just unpacks everything] Unlock Virtual Items", // Action name
     {
         params ["_target", "_caller"]; // _target is the crate, _caller is the player interacting
 
         // Call a custom function to process unlocking items
+		hint format ["Trying to run BLWK_fnc_unlockVirtualItems %1", _target];
         [_target] call BLWK_fnc_unlockVirtualItems;
 		
     }
