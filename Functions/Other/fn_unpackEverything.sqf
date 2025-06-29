@@ -1,14 +1,13 @@
 /* ----------------------------------------------------------------------------
-Function: BLWK_fnc_unlockVirtualItems
+Function: BLWK_fnc_unpack Everything
 
 Description:
-	Checks if there are more than "BLWK_quantityNeededToUnlock" items in the main crate.
-    If there are, then it unlocks that item in the virtual arsenal and deletes 10 of them from the crate.
+	Unpacks backpacks, vests and uniforms. Takes off all weapon attachments and magazines.
 	
-	Executed from the action added in "BLWK_fnc_prepareTheCratePlayer"
+	Executed from the action added in "BLWK_fnc_itemReclaimer_addActions"
 	
 Parameters:
-	0: _crate : <OBJECT> - The main crate
+	0: _crate : <OBJECT> - The vehicle inventory that contains the containers that need unpacking
 
 Returns:
 	NOTHING
@@ -16,7 +15,7 @@ Returns:
 Examples:
     (begin example)
 
-		[anObject] call BLWK_fnc_unlockVirtualItems;
+		[anObject] call BLWK_fnc_unpackEverything;
 
     (end)
 
@@ -70,7 +69,6 @@ private _fn_stripWeapon = { // takes all attachments and ammo out of a weapon
 };
 
 ////// UNPACKING ALL CONTAINERS //////////
-hint format ["Unpacking Containers in %1", _crate];
 private _allContainers = everyContainer _crate; // every backpack, uniform and vest
 {
     private _containerClassName = _x select 0; // we don't actually need this
@@ -109,13 +107,16 @@ private _allContainers = everyContainer _crate; // every backpack, uniform and v
 } forEach _allContainers;
 
 /////////// TAKE OFF ALL WEAPON ATTACHMENTS AND UNLOAD AMMO ///////////////
-hint format ["Stripping weapons in %1", _crate];
 private _allWeaponItems = weaponsItemsCargo _crate; // Weapons and weapon attachments including loaded ammo - array of arrays
 clearWeaponCargoGlobal _crate;   // Clears weapons
 {
     [_crate, _x] call _fn_stripWeapon;
 
 } forEach _allWeaponItems;
+
+
+// NOTE ABOUT COMMENTS BELOW: I was originally making this to create an "unlock" system similar to antistasi, but realised I should just use https://github.com/Jeroen-Notenbomer/Limited-Arsenal
+// But I'm leaving this here for now.
 
 ////////// REPACK - CONSOLIDATE NON FULL MAGAZINES ///////////
 

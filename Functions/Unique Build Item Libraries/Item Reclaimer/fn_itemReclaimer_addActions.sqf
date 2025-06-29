@@ -49,6 +49,23 @@ _reclaimerObject addAction [
 	3			// radius
 ];
 
+_reclaimerObject addAction [
+    "UNPACK ALL",// unpacks all backpacks, removes attachments and ammo
+    {
+        params ["_target", "_caller"]; // _target is the crate, _caller is the player interacting
+
+        // Call a custom function to process unlocking items
+        [_target getVariable "BLWK_reclaimBox"] call BLWK_fnc_unpackEverything;
+		
+    },
+	nil,		// arguments
+	199,		// priority
+	false,		// showWindow
+	true,		// hideOnUse
+	"",			// shortcut
+	"true", 	// condition
+	3			// radius
+];
 
 [
 	_reclaimerObject,
