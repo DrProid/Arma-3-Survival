@@ -48,6 +48,7 @@ class CfgFunctions
 {
 	#include "Headers\descriptionEXT\functions.hpp"
 	#include "KISKA Systems\KISKA Functions.hpp"
+	#include "JeroenArsenal\functions.hpp"
 };
 
 class CfgSounds

@@ -3,3 +3,5 @@ if (profileNamespace getVariable ["BLWK_savedMissionParameters",[]] isNotEqualTo
     profileNamespace setVariable ["BLWK_savedMissionParameters",nil];
     saveProfileNamespace;
 };
+
+call JN_fnc_ammo_init;

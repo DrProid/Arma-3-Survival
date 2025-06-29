@@ -79,7 +79,7 @@ private _healString = ["<t color='#ff0000'>-- Heal Yourself ",BLWK_pointsForHeal
 
 // Admin only action to reveal enemies if they are hidden somewhere and the wave won't end.
 _mainCrate addAction [
-	"<t color='#ff0000'>[ADMIN ONLY]</t> Reveal Enemies",
+	"<t color='#ffaa00'>[Workaround] Reveal Enemies</t>",
 	{
 		{player reveal [_x, 4]} forEach BLWK_mustKillArray;
 	},
@@ -88,27 +88,12 @@ _mainCrate addAction [
 	false,
 	true,
 	"true",
-	"hasInterface && isServer", // Probably won't show up for admins on dedicated servers
+	"hasInterface",
 	3
 ];
 
-// ["AmmoboxInit", [_mainCrate, false]] call BIS_fnc_arsenal;
-// I'll have to set up a system that compares the players inventory before and after using virtual ammo box so that points can be deducted for the items they take out
-// basically I just want to prevent the item reclaimer being cheesed by pulling out unlimited items from the virtual BIS_fnc_arsenal
-// if the player doesn't have enough points then don't go below 0. I don't really care if they are poor because that would mean they aren't cheesing the reclaim system
-
-// Add the "Unlock Virtual Items" action to the crate
-_mainCrate addAction [
-    "UNPACK ALL",//"[WIP, currently just unpacks everything] Unlock Virtual Items", // Action name
-    {
-        params ["_target", "_caller"]; // _target is the crate, _caller is the player interacting
-
-        // Call a custom function to process unlocking items
-		hint format ["Trying to run BLWK_fnc_unlockVirtualItems %1", _target];
-        [_target] call BLWK_fnc_unlockVirtualItems;
-		
-    }
-];
+// Add Jeroen Limited Arsenal
+_mainCrate call jn_fnc_arsenal_init;
 
 _mainCrate addEventHandler ["ContainerOpened",{
 	params ["_mainCrate"];
