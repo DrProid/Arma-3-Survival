@@ -305,6 +305,23 @@ class BLWK_buildableItems
 		rotation = 180;
 		attachmentY = 4;
 	};
+	
+	class Land_BagBunker_Tower_F : BLWK_genericBuildItemBase
+	{
+		price = 2500;
+		category = BUNKERS_CATEGORY;
+		rotation = 180;
+		attachmentY = 4;
+	};
+
+	class Land_BagBunker_Large_F : BLWK_genericBuildItemBase
+	{
+		price = 3500;
+		tooltip = "About 4x the size of a small bunker."
+		category = BUNKERS_CATEGORY;
+		rotation = 180;
+		attachmentY = 4;
+	};
 
 	class Land_PillboxBunker_01_hex_F : BLWK_genericBuildItemBase
 	{
@@ -325,8 +342,20 @@ class BLWK_buildableItems
 		detectCollision = 0;
 	};
 
+	class Land_Cargo_Tower_V1_F : BLWK_genericBuildItemBase
+	{
+		price = 10000;
+		category = TOWERS_CATEGORY;
+		rotation = 270;
+		attachmentY = 8;
+		attachmentZ = 12;
+		invincible = 1;
+		detectCollision = 0;
+	};
+
 	class B_HMG_01_A_F : BLWK_genericTurretBase
 	{
+		tooltip = "Autonomous";
 		price = 3000;
 		hasAI = 1;
 		rotation = 180;
@@ -373,6 +402,13 @@ class BLWK_buildableItems
 	{
 		price = 100;
 		category = OBSTACLES_CATEGORY;
+	};
+
+	class B_GMG_01_A_F : BLWK_genericTurretBase
+	{
+		tooltip = "Autonomous";
+		price = 4000;
+		attachmentZ = 2;
 	};
 
 	class B_GMG_01_high_F : BLWK_genericTurretBase
