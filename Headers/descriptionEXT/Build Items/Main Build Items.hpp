@@ -310,17 +310,17 @@ class BLWK_buildableItems
 	{
 		price = 2500;
 		category = BUNKERS_CATEGORY;
-		rotation = 180;
-		attachmentY = 4;
+		rotation = 90;
+		attachmentY = 6;
+		attachmentZ = 1;
 	};
 
 	class Land_BagBunker_Large_F : BLWK_genericBuildItemBase
 	{
 		price = 3500;
-		tooltip = "About 4x the size of a small bunker."
 		category = BUNKERS_CATEGORY;
 		rotation = 180;
-		attachmentY = 4;
+		attachmentY = 8;
 	};
 
 	class Land_PillboxBunker_01_hex_F : BLWK_genericBuildItemBase
@@ -355,7 +355,6 @@ class BLWK_buildableItems
 
 	class B_HMG_01_A_F : BLWK_genericTurretBase
 	{
-		tooltip = "Autonomous";
 		price = 3000;
 		hasAI = 1;
 		rotation = 180;
@@ -406,7 +405,6 @@ class BLWK_buildableItems
 
 	class B_GMG_01_A_F : BLWK_genericTurretBase
 	{
-		tooltip = "Autonomous";
 		price = 4000;
 		attachmentZ = 2;
 	};
