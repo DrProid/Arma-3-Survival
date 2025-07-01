@@ -261,11 +261,7 @@ private _fn_sortMagazines = {
 		This is because the magazines spawned in BLWK_fnc_spawnLoot are taken directly
 		 from the weapon classes available so that, for instance, no mags for a blacklisted gun spawn.
 	*/
-	if ((toLowerANSI _tempItemType) in ["grenade","flare"]) exitWith {
-		[_explosiveClasses] call _fn_pushBackTempClass;
-	};
-
-	if ((toLowerANSI _tempItemType) in ["shell", "smokeshell"]) then {
+	if ((toLowerANSI _tempItemType) in ["grenade", "flare", "shell", "smokeshell"]) then {
 		private _desc = getText (configFile >> "CfgMagazines" >> _tempClass >> "descriptionShort");
 		if ((_desc find "3GL" > -1) || (_desc find "Hand" > -1)) exitWith {
 			[_explosiveClasses] call _fn_pushBackTempClass;

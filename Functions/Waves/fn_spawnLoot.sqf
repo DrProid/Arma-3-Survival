@@ -258,6 +258,34 @@ private _fn_findAMagazine = {
 	};
 };
 
+private _fn_findSecondaryMagazine = {
+	params ["_weaponClass", "_mainMag"];
+	
+	private _magArray = compatibleMagazines _weaponClass;
+
+	//remove the main magazine
+	private _index = _magArray find _mainMag;
+	if (_index > -1) then {
+		_magArray deleteAt _index;
+	};
+
+	// if no mags are found
+	if (_magArray isEqualTo []) exitWith {""};
+
+	_magArray = [_magArray] call CBAP_fnc_shuffle;
+	
+	private _index = _magArray findIf {
+		!((toLowerANSI _x) in BLWK_lootBlacklist)
+	};
+
+	// if a mag is found
+	if (_index != -1) then {
+		_magArray select _index
+	} else { // if a mag is not found
+		""
+	};
+};
+
 private _lootTypeWeights = [
 	LOOT_TYPE_BACKPACK,localNamespace getVariable ["BLWK_lootWeight_backpack",1],
 	LOOT_TYPE_EXPLOSIVES,localNamespace getVariable ["BLWK_lootWeight_explosives",1],
@@ -326,6 +354,10 @@ private _fn_addLoot = {
 		if (_magazineClass != "") then {
 			_holder addMagazineCargoGlobal [_magazineClass,round random [1,2,3]];
 		};
+		_secondMagazineClass = [_selectedItemClass, _magazineClass] call _fn_findSecondaryMagazine;
+		if (_secondMagazineClass != "") then {
+			_holder addMagazineCargoGlobal [_secondMagazineClass, 1];
+		};
 
 		_selectedItemClass
 	};
@@ -336,6 +368,10 @@ private _fn_addLoot = {
 		// if weapon has mags capable of spawning
 		if (_magazineClass isNotEqualTo "") then {
 			_holder addMagazineCargoGlobal [_magazineClass,round random [1,2,3]];
+		};
+		_secondMagazineClass = [_selectedItemClass, _magazineClass] call _fn_findSecondaryMagazine;
+		if (_secondMagazineClass != "") then {
+			_holder addMagazineCargoGlobal [_secondMagazineClass, 1];
 		};
 
 		_magazineClass
