@@ -149,25 +149,23 @@ private _healString = ["<t color='#ff0000'>-- Heal Yourself ",BLWK_pointsForHeal
 
 [_mainCrate] call BLWK_fnc_addBuildableObjectActions;
 
-// Admin only action to reveal enemies if they are hidden somewhere and the wave won't end.
+// Admin only action - free UAV
 _mainCrate addAction [
-	"<t color='#ffaa00'>[Workaround] Reveal Enemies</t>",
+	"<t color='#ffaa00'>[ADMIN] Free Recon UAV</t>",
 	{
-		{player reveal [_x, 4]} forEach BLWK_mustKillArray;
+		[] spawn BLWK_fnc_reconUAV;
 	},
 	nil,
 	1,
 	false,
 	true,
 	"true",
-	"hasInterface",
+	"hasInterface && isServer",
 	2
 ];
 
 // Add Jeroen Limited Arsenal
 _mainCrate call jn_fnc_arsenal_init;
-
-
 
 _mainCrate addEventHandler ["ContainerOpened",{
 	params ["_mainCrate"];
