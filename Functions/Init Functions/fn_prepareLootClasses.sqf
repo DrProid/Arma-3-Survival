@@ -264,6 +264,14 @@ private _fn_sortMagazines = {
 	if ((toLowerANSI _tempItemType) in ["grenade","flare"]) exitWith {
 		[_explosiveClasses] call _fn_pushBackTempClass;
 	};
+
+	if ((toLowerANSI _tempItemType) in ["shell", "smokeshell"]) then {
+		private _desc = getText (configFile >> "CfgMagazines" >> _tempClass >> "descriptionShort");
+		if ((_desc find "3GL" > -1) || (_desc find "Hand" > -1)) exitWith {
+			[_explosiveClasses] call _fn_pushBackTempClass;
+		};
+	};
+
 };
 
 
