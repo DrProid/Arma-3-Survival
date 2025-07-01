@@ -140,11 +140,13 @@ if(hasInterface)then{
             [clientOwner,_object] remoteExecCall ["jn_fnc_arsenal_requestOpen",2];
         },
         [],
-        6,
+        999,
         true,
         false,
         "",
-        "alive _target && {_target distance _this < 5} && {vehicle player == player}"
+        "vehicle player == player",
+		2.5,
+		false
     ];
 	//ACTION_SET_ICON_AND_TEXT(_object, _id, STR_ACTION_TEXT_ARSENAL, STR_ACTION_ICON_ARSENAL);
 

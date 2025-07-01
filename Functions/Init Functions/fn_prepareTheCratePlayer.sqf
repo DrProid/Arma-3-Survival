@@ -51,6 +51,76 @@ if (isNil "BLWK_mainCrate") then {
 	BLWK_mainCrate = _mainCrate;
 };
 
+// Add an action to the crate to buy a magazine based on player's current weapon
+_mainCrate addAction [
+	format ["<t color='#ff00ff'>-- Buy Magazine %1p --</t>", BLWK_IRP_magazines], // Display action text with cost
+	{
+    	params ["_target", "_caller"]; // _target = crate, _caller = player
+
+		if ((missionNamespace getVariable ["BLWK_playerKillPoints",0]) < BLWK_IRP_magazines) exitWith {
+			["Not enough points to buy magazine."] call KISKA_fnc_errorNotification;
+			// hint "Not enough points to buy magazine.";
+			playSound3D ["a3\sounds_f\sfx\hint-2.wss", _caller];
+		};
+
+		if (currentWeapon _caller == "") exitWith {
+			["No weapon in players hands."] call KISKA_fnc_errorNotification;
+			// hint "No weapon in players hands.";
+			playSound3D ["a3\sounds_f\sfx\hint-2.wss", _caller];
+		};
+
+		// Get the magazine for the current weapon
+		private _mag = getArray (configFile >> "CfgWeapons" >> currentWeapon _caller >> "magazines") select 0;
+		// Try to add the mag to uniform
+		if (_caller canAddItemToUniform _mag) then {
+			_caller addItemToUniform _mag;
+			["Magazine placed in your uniform."] call KISKA_fnc_notification;
+			playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
+			[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
+
+		// Else, try vest
+		} else {
+			if (_caller canAddItemToVest _mag) then {
+				_caller addItemToVest _mag;
+				["Magazine placed in your vest."] call KISKA_fnc_notification;
+				playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
+				[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
+
+			// Else, try backpack
+			} else {
+				if (_caller canAddItemToBackpack _mag) then {
+					_caller addItemToBackpack _mag;
+					["Magazine placed in your backpack."] call KISKA_fnc_notification;
+					playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
+					[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
+
+				// Else, try putting it in the box
+				} else {
+					if (_target canAdd _mag) then {
+						_target addMagazineCargoGlobal [_mag, 1];
+						["Magazine placed in Main Crate inventory."] call KISKA_fnc_notification;
+						playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
+						[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
+
+					// No space anywhere
+					} else {
+						["No space to put the magazine!"] call KISKA_fnc_errorNotification;
+						playSound3D ["a3\sounds_f\sfx\hint-2.wss", _caller];
+					}
+				};
+			};
+		};
+
+	},
+	nil,            // arguments (none)
+	998,              // priority
+	false,          // showWindow
+	false,			// hideOnUse
+	"true",         // condition (always available)
+	"hasInterface", // only for players
+	2.5              // distance
+];
+
 private _healString = ["<t color='#ff0000'>-- Heal Yourself ",BLWK_pointsForHeal,"p --</t>"] joinString "";
 [
 	_mainCrate,
@@ -66,7 +136,7 @@ private _healString = ["<t color='#ff0000'>-- Heal Yourself ",BLWK_pointsForHeal
 	},
 	{},
 	[],
-	1,
+	2,
 	2.5,
 	false,
 	false,
@@ -84,16 +154,18 @@ _mainCrate addAction [
 		{player reveal [_x, 4]} forEach BLWK_mustKillArray;
 	},
 	nil,
-	2,
+	1,
 	false,
 	true,
 	"true",
 	"hasInterface",
-	3
+	2
 ];
 
 // Add Jeroen Limited Arsenal
 _mainCrate call jn_fnc_arsenal_init;
+
+
 
 _mainCrate addEventHandler ["ContainerOpened",{
 	params ["_mainCrate"];

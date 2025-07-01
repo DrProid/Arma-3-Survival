@@ -28,7 +28,6 @@ if (!isServer) exitWith {};
 
 // create Crate
 _mainCrate = createVehicle ["B_supplyCrate_F", [0,0,0], [], 0, "NONE"];
-_mainCrate setVariable ["maximumLoad", 100000, true]; // Increase to 100,000 mass units
 
 clearItemCargoGlobal _mainCrate;
 clearWeaponCargoGlobal _mainCrate;
