@@ -57,24 +57,26 @@ _mainCrate addAction [
 	{
     	params ["_target", "_caller"]; // _target = crate, _caller = player
 
+		// Check if can't afford. Price is same you would earn from item reclaimer.
 		if ((missionNamespace getVariable ["BLWK_playerKillPoints",0]) < BLWK_IRP_magazines) exitWith {
 			["Not enough points to buy magazine."] call KISKA_fnc_errorNotification;
-			// hint "Not enough points to buy magazine.";
 			playSound3D ["a3\sounds_f\sfx\hint-2.wss", _caller];
 		};
 
+		// Check if player is not holding a weapon.
 		if (currentWeapon _caller == "") exitWith {
 			["No weapon in players hands."] call KISKA_fnc_errorNotification;
-			// hint "No weapon in players hands.";
 			playSound3D ["a3\sounds_f\sfx\hint-2.wss", _caller];
 		};
 
-		// Get the magazine for the current weapon
-		private _mag = getArray (configFile >> "CfgWeapons" >> currentWeapon _caller >> "magazines") select 0;
+		// Get the magazine for the current weapon and muzzle selected
+		private _curMag = currentMagazine _caller;
+		private _mag = if (_curMag != "") then { _curMag } else { (compatibleMagazines [currentWeapon _caller, currentMuzzle _caller]) select 0 };
+		private _magName = getText (configFile >> "CfgMagazines" >> _mag >> "displayName");
 		// Try to add the mag to uniform
 		if (_caller canAddItemToUniform _mag) then {
 			_caller addItemToUniform _mag;
-			["Magazine placed in your uniform."] call KISKA_fnc_notification;
+			[format ["%1 placed in your uniform.", _magName]] call KISKA_fnc_notification;
 			playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
 			[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
 
@@ -82,7 +84,7 @@ _mainCrate addAction [
 		} else {
 			if (_caller canAddItemToVest _mag) then {
 				_caller addItemToVest _mag;
-				["Magazine placed in your vest."] call KISKA_fnc_notification;
+				[format ["%1 placed in your vest.", _magName]] call KISKA_fnc_notification;
 				playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
 				[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
 
@@ -90,7 +92,7 @@ _mainCrate addAction [
 			} else {
 				if (_caller canAddItemToBackpack _mag) then {
 					_caller addItemToBackpack _mag;
-					["Magazine placed in your backpack."] call KISKA_fnc_notification;
+					[format ["%1 placed in your backpack.", _magName]] call KISKA_fnc_notification;
 					playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
 					[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
 
@@ -98,7 +100,7 @@ _mainCrate addAction [
 				} else {
 					if (_target canAdd _mag) then {
 						_target addMagazineCargoGlobal [_mag, 1];
-						["Magazine placed in Main Crate inventory."] call KISKA_fnc_notification;
+						[format ["%1 placed in crate inventory.", _magName]] call KISKA_fnc_notification;
 						playSound3D ["A3\Sounds_F\sfx\blip1.wss", _caller];
 						[BLWK_IRP_magazines] call BLWK_fnc_subtractPoints;
 
