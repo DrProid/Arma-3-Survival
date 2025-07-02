@@ -312,7 +312,7 @@ class BLWK_buildableItems
 		category = BUNKERS_CATEGORY;
 		rotation = 90;
 		attachmentY = 6;
-		attachmentZ = 1;
+		attachmentZ = 2.5;
 	};
 
 	class Land_BagBunker_Large_F : BLWK_genericBuildItemBase

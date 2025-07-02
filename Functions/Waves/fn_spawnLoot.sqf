@@ -314,6 +314,28 @@ private _fn_addLoot = {
 		_selectedItemClass = selectRandom BLWK_loot_backpackClasses;
 		_holder addBackpackCargoGlobal [_selectedItemClass,1];
 
+		// Does this item assemble into anything
+		private _assembledClass = getText (configFile >> "CfgVehicles" >> _selectedItemClass >> "assembleInfo" >> "assembleTo");
+
+		if (_assembledClass != "") then {
+			// get the other required parts for assembly
+			private _disassembleParts = getArray (configFile >> "CfgVehicles" >> _assembledClass >> "assembleInfo" >> "dissasembleTo");
+			//remove the part we already have
+			_disassembleParts deleteAt (_disassembleParts find _selectedItemClass);
+
+			if (!(_disassembleParts isEqualTo [])) then {
+				{
+					// add the parts to the same loot pile
+					_holder addBackpackCargoGlobal [_x, 1];
+				} forEach _disassembleParts;
+			};
+
+			// If it's a UAV, add a UAV terminal
+			if (getNumber (configFile >> "CfgVehicles" >> _assembledClass >> "isUav") == 1) then {
+				_holder addItemCargoGlobal ["B_UavTerminal", 1];
+			};
+		};
+
 		_selectedItemClass
 	};
 

@@ -273,7 +273,7 @@ private _fn_sortMagazines = {
 
 private _fn_sortType = {
 	// get the class name of the item and check if it is in the blacklist
-	if (_tempClass in BLWK_lootBlacklist) exitWith {};
+	if ((toLowerANSI _tempClass) in BLWK_lootBlacklist) exitWith {};
 
 	_tempItemInfo = [_tempClass] call BIS_fnc_itemType;
 	_tempItemCategory = _tempItemInfo select 0;
