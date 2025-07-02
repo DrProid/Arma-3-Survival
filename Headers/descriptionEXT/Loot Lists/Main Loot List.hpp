@@ -3,29 +3,56 @@ class BLWK_lootLists
     class MasterLootList
     {
         lootBlackList[] = {
-            // "O_Static_Designator_02_weapon_F",
-            // "O_UAV_06_backpack_F",
-            // "O_UAV_06_medical_backpack_F",
-            // "O_UAV_01_backpack_F",
-            //"B_IR_Grenade",
-            "O_IR_Grenade",
-            "I_IR_Grenade",
-            "TrainingMine_Mag",
-            "ChemicalDetector_01_watch_F",
-            "ChemicalDetector_01_olive_F",
-            "8Rnd_82mm_Mo_Flare_white",
+            //ITEMS
+            "ItemWatch", 
+            "ItemCompass", 
+            "ItemGPS", 
+            "ItemRadio", 
+            "ItemMap", 
+            "MineDetector", 
+            "Zasleh2", 
+            "B_UavTerminal", 
+            "O_UavTerminal", 
+            "I_UavTerminal", 
+            "C_UavTerminal", 
+            "I_E_UavTerminal", 
+            "ChemicalDetector_01_olive_F", 
+            "ChemicalDetector_01_black_F", 
+            "ChemicalDetector_01_tan_F", 
+            "ChemicalDetector_01_watch_F", 
             "muzzle_antenna_01_f",
-            "V_Safety_yellow_F",
             "muzzle_antenna_02_f",
-            "rhsusf_100Rnd_556x45_M200_soft_pouch_ucp",
-            "rhsusf_100Rnd_556x45_M200_soft_pouch_coyote",
-            "rhsusf_100Rnd_556x45_M200_soft_pouch",
-            "rhs_mag_30Rnd_556x45_M200_Stanag",
-            "rhs_mag_20Rnd_556x45_M200_Stanag",
-            "rhsusf_100Rnd_762x51_m82_blank",
-            "rhsusf_50Rnd_762x51_m82_blank",
+            "muzzle_antenna_03_f", 
+
+            //WEAPONS
             "hgun_Pistol_Signal_F",
-            
+
+            //VESTS
+            "V_RebreatherB", 
+            "V_RebreatherIR", 
+            "V_RebreatherIA", 
+            // "V_Safety_yellow_F",
+
+            //UNIFORMS
+            // this section exists for consistency
+
+            //HELMETS
+            // this section exists for consistency
+
+            //EXPLOSIVES
+            "TrainingMine_Mag",
+            // "B_IR_Grenade",
+            // "O_IR_Grenade",
+            // "I_IR_Grenade",
+            // "8Rnd_82mm_Mo_Flare_white",
+            // "rhsusf_100Rnd_556x45_M200_soft_pouch_ucp",
+            // "rhsusf_100Rnd_556x45_M200_soft_pouch_coyote",
+            // "rhsusf_100Rnd_556x45_M200_soft_pouch",
+            // "rhs_mag_30Rnd_556x45_M200_Stanag",
+            // "rhs_mag_20Rnd_556x45_M200_Stanag",
+            // "rhsusf_100Rnd_762x51_m82_blank",
+            // "rhsusf_50Rnd_762x51_m82_blank",
+
             //BACKPACKS
             "B_Parachute", 
             "B_HMG_01_support_F", 

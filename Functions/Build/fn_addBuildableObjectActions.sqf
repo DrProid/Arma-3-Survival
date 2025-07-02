@@ -191,7 +191,7 @@ _object addAction [
 	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Lock " + _objectName + " --</t></t></t>",
 	{
 		params ["_object"];
-		_object setVariable ['BLWK_objectLocked', true];
+		_object setVariable ['BLWK_objectLocked', true, true];
 	},
 	nil,
 	99,
@@ -207,7 +207,7 @@ _object addAction [
 	"<t color='#ff0000'><t underline='true'><t font='RobotoCondensedBold'>-- Unlock " + _objectName + " --</t></t></t>",
 	{
 		params ["_object"];
-		_object setVariable ['BLWK_objectLocked', false];
+		_object setVariable ['BLWK_objectLocked', false, true];
 	},
 	nil,
 	99,

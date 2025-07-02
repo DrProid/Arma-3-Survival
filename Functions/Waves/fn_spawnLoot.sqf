@@ -393,7 +393,7 @@ private _fn_addLoot = {
 		};
 		_secondMagazineClass = [_selectedItemClass, _magazineClass] call _fn_findSecondaryMagazine;
 		if (_secondMagazineClass != "") then {
-			_holder addMagazineCargoGlobal [_secondMagazineClass, 1];
+			_holder addMagazineCargoGlobal [_secondMagazineClass, 2];
 		};
 
 		_magazineClass
