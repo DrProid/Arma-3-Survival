@@ -22,6 +22,8 @@ class BLWK
 		{};
 		class addBuildableObjectActions
 		{};
+		class addLockVisual
+		{};
 		class addPickedUpObjectActions
 		{};
 		class addRemoveRemotePurchaseEvent
@@ -53,6 +55,8 @@ class BLWK
 		class purchaseObject
 		{};
 		class registerObjectPickup
+		{};
+		class removeLockVisual
 		{};
 		class removePickedUpObjectActions
 		{};

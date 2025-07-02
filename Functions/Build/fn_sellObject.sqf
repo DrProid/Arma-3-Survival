@@ -37,6 +37,8 @@ if !(isNull _attachedToObject) then {
 	call BLWK_fnc_removePickedUpObjectActions;
 };
 
+[_object] call BLWK_fnc_removeLockVisual;
+
 private _price = (BLWK_buildableObjectsHash get (toLowerANSI (typeOf _object))) select PRICE;
 [_price] call BLWK_fnc_addPoints;
 

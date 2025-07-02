@@ -192,6 +192,7 @@ _object addAction [
 	{
 		params ["_object"];
 		_object setVariable ['BLWK_objectLocked', true, true];
+		[_object] call BLWK_fnc_removeLockVisual;
 	},
 	nil,
 	99,
@@ -208,6 +209,7 @@ _object addAction [
 	{
 		params ["_object"];
 		_object setVariable ['BLWK_objectLocked', false, true];
+		[_object] call BLWK_fnc_addLockVisual;
 	},
 	nil,
 	99,

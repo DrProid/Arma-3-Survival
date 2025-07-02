@@ -93,6 +93,7 @@ if (_propertiesArray select DETECT_COLLISION) then {
 	_purchasedObject setVariable ["BLWK_collisionObject",true,BLWK_theAIHandlerOwnerID];
 };
 
+[_purchasedObject] call BLWK_fnc_addLockVisual;
 
 // postfix event
 [_purchasedObject] call BLWK_fnc_buildEvent_onPurchasedPostfix;
